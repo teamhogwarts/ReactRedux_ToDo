@@ -3,39 +3,35 @@ import ToDoElement from "./ToDoElement";
 import {Row, Container} from 'reactstrap'
 import Filter from "./Filter";
 import Dialog from "./Dialog";
+import doFetch from "../util/fetchUtil";
 
+const headers = { headers: { 'Content-Type': 'application/json; charset=utf-8' } };
 
-
-const ToDoContainer = ({initialToDos}) => {
+const ToDoContainer = ({initialToDos, serverUrl}) => {
 
     const [toDos, setToDos] = useState([]);
 
-    const getId = () => {
-        let higestId = 0;
-        toDos.forEach(e => {
-            higestId = higestId < e.id ? e.id : higestId;
-        });
-        return higestId + 1;
-    };
-
     const readAll = () => {
-        setToDos(initialToDos)
+        doFetch({url: serverUrl, dataHandler: setToDos, errorText: "read todo's failed"});
     };
 
-    useEffect(readAll, [])
+    useEffect(readAll, []);
 
     const add = (toDo) => {
-        const toDoWithNewID = {...toDo, id: getId()};
 
-        setToDos([...toDos, toDoWithNewID])
+        const dataHandler = savedTodo => setToDos([...toDos, savedTodo]);
+
+        doFetch({url: serverUrl, requestObject: {method: "POST", ...headers, body: JSON.stringify(toDo)}, dataHandler, errorText: "add todo failed"});
     };
 
     const _delete = (id) => {
-        setToDos(toDos.filter(toDo => toDo.id !== id))
+        const dataHandler = (ghj) => setToDos(toDos.filter(toDo => toDo.id !== id));
+        doFetch({url: `${serverUrl}/${id}`, requestObject: {method: "DELETE"}, dataHandler, errorText: "delete todo failed"});
     };
 
-    const update = (updatedToDo) => {
-       setToDos(toDos.map(toDo => toDo.id === updatedToDo.id ? updatedToDo : toDo))
+    const update = (toUpdateToDo) => {
+       const dataHandler = updatedToDo => setToDos(toDos.map(toDo => toDo.id === updatedToDo.id ? updatedToDo : toDo));
+        doFetch({url: `${serverUrl}/${toUpdateToDo.id}`, requestObject: {method: "PUT", ...headers, body: JSON.stringify(toUpdateToDo)}, dataHandler, errorText: "update todo failed"});
     };
 
     return (<Container>
