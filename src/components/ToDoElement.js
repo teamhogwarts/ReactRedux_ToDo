@@ -1,5 +1,7 @@
 import React from "react";
 import {Col, Card, CardBody, CardTitle, CardText, Button} from "reactstrap";
+import Dialog from "./Dialog";
+import {Row} from 'reactstrap'
 
 const ToDoElement = ({toDo: {id, title, description}}) =>
 
@@ -8,8 +10,10 @@ const ToDoElement = ({toDo: {id, title, description}}) =>
             <CardBody>
                 <CardTitle>{title}</CardTitle>
                 <CardText>{description}</CardText>
-                <Button>Edit</Button>
-                <Button color="danger">Delete</Button>
+                <div style={{display: "inline-block"}}>
+                    <Dialog color={"info"} actionLabel={"save"} dialogButtonLabel={"edit"}/>
+                    <Button color="danger">Delete</Button>
+                </div>
             </CardBody>
         </Card>
     </Col>
