@@ -10,9 +10,9 @@ const Dialog = ({toDo, dialogButtonLabel, color, actionLabel, buttonStyle, heade
     const change = event => setToDo({...toDoState, [event.target.name]: event.target.value});
 
     const onAction = (toDo, actionFn) => {
-        (actionFn || (x => x)) (toDo)
-        close()
-    }
+        (actionFn || (x => x)) (toDo);
+        close();
+    };
 
     const close = () => setModal(false);
     const open = () => setModal(true);
@@ -37,6 +37,6 @@ const Dialog = ({toDo, dialogButtonLabel, color, actionLabel, buttonStyle, heade
             </Modal>
         </>
     )
-}
+};
 
 export default Dialog

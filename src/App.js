@@ -21,7 +21,7 @@ const App = () => {
             <ToDoContainer initialToDos={initialState.toDos}/>
         </div>
     );
-}
+};
 
 
 export default App;

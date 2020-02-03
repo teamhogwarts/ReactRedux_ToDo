@@ -10,6 +10,6 @@ const FormGroupElement = ({onChangeHandler, label, id, value, name}) => {
             </Col>
         </FormGroup>
     )
-}
+};
 
 export default FormGroupElement

@@ -16,27 +16,27 @@ const ToDoContainer = ({initialToDos}) => {
             higestId = higestId < e.id ? e.id : higestId;
         });
         return higestId + 1;
-    }
+    };
 
     const readAll = () => {
         setToDos(initialToDos)
-    }
+    };
 
     useEffect(readAll, [])
 
     const add = (toDo) => {
-        const toDoWithNewID = {...toDo, id: getId()}
-        
+        const toDoWithNewID = {...toDo, id: getId()};
+
         setToDos([...toDos, toDoWithNewID])
-    }
+    };
 
     const _delete = (id) => {
         setToDos(toDos.filter(toDo => toDo.id !== id))
-    }
+    };
 
     const update = (updatedToDo) => {
        setToDos(toDos.map(toDo => toDo.id === updatedToDo.id ? updatedToDo : toDo))
-    }
+    };
 
     return (<Container>
         <Filter/>
@@ -47,7 +47,7 @@ const ToDoContainer = ({initialToDos}) => {
         </Row>
     </Container>)
 
-}
+};
 
 
 export default ToDoContainer
