@@ -1,33 +1,34 @@
 import React, {useState} from "react";
-import {Button, Modal, ModalHeader, ModalFooter, ModalBody} from 'reactstrap'
+import {Button, Modal, ModalHeader, ModalFooter, ModalBody, FormGroup, Form, Label, Col, Input} from 'reactstrap'
+import FormGroupElement from "./FormGroupElement";
 
-const Dialog = ({dialogButtonLabel, color, actionLabel, buttonStyle}) => {
+const Dialog = ({toDo, dialogButtonLabel, color, actionLabel, buttonStyle, headerText}) => {
+
+    const [toDoState, setToDo] = useState(toDo);
+
+    const change = event => setToDo({...toDoState, [event.target.name]: event.target.value})
 
     const [modal, setModal] = useState(false);
 
     const toggle = () => setModal(!modal);
 
     return (
-        <div>
+        <>
             <Button style={buttonStyle} color={color} onClick={toggle}>{dialogButtonLabel}</Button>
             <Modal isOpen={modal} toggle={toggle} >
-                <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                <ModalHeader toggle={toggle}>{headerText}</ModalHeader>
                 <ModalBody>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    <Form>
+                       <FormGroupElement name={"title"} onChangeHandler={change} id={"toDoTitle"} value={toDoState.title} label={"Title"}/>
+                       <FormGroupElement name={"description"} onChangeHandler={change} id={"toDoDescription"} value={toDoState.description} label={"Description"}/>
+                    </Form>
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={toggle}>{actionLabel}</Button>{' '}
                     <Button color="secondary" onClick={toggle}>cancel</Button>
                 </ModalFooter>
             </Modal>
-        </div>
+        </>
     )
 }
 
