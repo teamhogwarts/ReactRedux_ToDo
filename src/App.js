@@ -18,7 +18,7 @@ const App = () => {
             <Jumbotron>
                 <h1>ToDos:</h1>
             </Jumbotron>
-            <ToDoContainer toDos={initialState.toDos}/>
+            <ToDoContainer initialToDos={initialState.toDos}/>
         </div>
     );
 }
