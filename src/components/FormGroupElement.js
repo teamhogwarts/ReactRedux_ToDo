@@ -1,5 +1,5 @@
 import React from "react";
-import {Col, Form, FormGroup, Input, Label} from "reactstrap";
+import {Col, FormGroup, Input, Label} from "reactstrap";
 
 const FormGroupElement = ({onChangeHandler, label, id, value, name}) => {
     return (
