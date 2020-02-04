@@ -10,11 +10,10 @@ const headers = {headers: {'Content-Type': 'application/json; charset=utf-8'}};
 const ToDoContainer = ({initialToDos, serverUrl}) => {
 
     const [toDos, setToDos] = useState([]);
-    const [copyOfTodos, setCopyOfTodos] = useState([]);
+    const [filterTerm, setFilterTerm] = useState("");
 
     const readAll = () => {
         doFetch({url: serverUrl, dataHandler: setToDos, errorText: "read todo's failed"});
-        setCopyOfTodos([...toDos]);
     };
 
     useEffect(readAll, []);
@@ -51,22 +50,21 @@ const ToDoContainer = ({initialToDos, serverUrl}) => {
         });
     };
 
-    const filter = event => {
-        const data = [...copyOfTodos];
-        const filterTerm = event.target.value;
-        if (filterTerm === '') {
-            setToDos(data);
+    const filter = () => {
+        const filterTermIgnore = filterTerm.toLowerCase();
+        if (filterTermIgnore === '') {
+            return toDos;
         }
-        setToDos(data.filter(toDo => toDo.title.includes(filterTerm) || toDo.description.includes(filterTerm)));
+        return toDos.filter(toDo => toDo.title.toLowerCase().includes(filterTermIgnore) || toDo.description.toLowerCase().includes(filterTermIgnore))
     };
 
     return (<Container>
-        <Filter filterFn={filter}/>
+        <Filter filterFn={setFilterTerm}/>
         <Dialog actionFn={add} toDo={{title: '', description: ''}}
                 buttonStyle={{width: "100%", marginTop: "2%", marginBottom: "2%"}}
                 headerText={"Add a new ToDo"} color={"success"} dialogButtonLabel={"add"} actionLabel={"create"}/>
         <Row>
-            {toDos.map(toDo => <ToDoElement updateFn={update} deleteFn={_delete} key={toDo.id} toDo={toDo}/>)}
+            {filter().map(toDo => <ToDoElement updateFn={update} deleteFn={_delete} key={toDo.id} toDo={toDo}/>)}
         </Row>
     </Container>)
 

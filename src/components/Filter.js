@@ -6,7 +6,7 @@ const Filter = ({filterFn}) =>
         <InputGroupAddon addonType="prepend">
             <InputGroupText>Filter Term</InputGroupText>
         </InputGroupAddon>
-        <Input type="text" id="filter"  placeholder="enter filter term" onChange={filterFn}/>
+        <Input type="text" id="filter"  placeholder="enter filter term" onChange={event => filterFn(event.target.value)}/>
     </InputGroup>
 
 
