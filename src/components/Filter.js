@@ -7,9 +7,6 @@ const Filter = ({filterFn}) =>
             <InputGroupText>Filter Term</InputGroupText>
         </InputGroupAddon>
         <Input type="text" id="filter"  placeholder="enter filter term" onChange={event => filterFn(event.target.value)}/>
-    </InputGroup>
-
-
-
+    </InputGroup>;
 
 export default Filter

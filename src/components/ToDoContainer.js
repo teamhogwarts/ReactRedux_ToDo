@@ -4,50 +4,58 @@ import {Row, Container} from 'reactstrap'
 import Filter from "./Filter";
 import Dialog from "./Dialog";
 import doFetch from "../util/fetchUtil";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
+import {readTodo, deleteTodo, updateTodo, addTodo} from "../actions/actions";
 
 const headers = {headers: {'Content-Type': 'application/json; charset=utf-8'}};
 
 const ToDoContainer = ({initialToDos, serverUrl}) => {
 
-    const [toDos, setToDos] = useState([]);
+    const toDos = useSelector(state => state.todos, shallowEqual);
+
     const [filterTerm, setFilterTerm] = useState("");
+    const dispatch = useDispatch();
 
     const readAll = () => {
-        doFetch({url: serverUrl, dataHandler: setToDos, errorText: "read todo's failed"});
+        dispatch(doFetch({url: serverUrl, actionCreator: readTodo, errorText: "read todo's failed"}))
     };
+
 
     useEffect(readAll, []);
 
     const add = (toDo) => {
 
-        const dataHandler = savedTodo => setToDos([...toDos, savedTodo]);
+        // const dataHandler = savedTodo => setToDos([...toDos, savedTodo]);
 
-        doFetch({
+        dispatch(doFetch({
             url: serverUrl,
             requestObject: {method: "POST", ...headers, body: JSON.stringify(toDo)},
-            dataHandler,
+            actionCreator: addTodo,
             errorText: "add todo failed"
-        });
+        }));
     };
 
     const _delete = (id) => {
-        const dataHandler = (ghj) => setToDos(toDos.filter(toDo => toDo.id !== id));
-        doFetch({
+        // const dataHandler = () => setToDos(toDos.filter(toDo => toDo.id !== id));
+
+        dispatch(doFetch({
             url: `${serverUrl}/${id}`,
             requestObject: {method: "DELETE"},
-            dataHandler,
+            actionCreator: deleteTodo,
             errorText: "delete todo failed"
-        });
+        }));
     };
 
     const update = (toUpdateToDo) => {
-        const dataHandler = updatedToDo => setToDos(toDos.map(toDo => toDo.id === updatedToDo.id ? updatedToDo : toDo));
-        doFetch({
+
+        // const dataHandler = updatedToDo => setToDos(toDos.map(toDo => toDo.id === updatedToDo.id ? updatedToDo : toDo));
+
+        dispatch(doFetch({
             url: `${serverUrl}/${toUpdateToDo.id}`,
             requestObject: {method: "PUT", ...headers, body: JSON.stringify(toUpdateToDo)},
-            dataHandler,
+            actionCreator: updateTodo,
             errorText: "update todo failed"
-        });
+        }));
     };
 
     const filter = () => {
