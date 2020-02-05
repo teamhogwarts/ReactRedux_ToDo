@@ -1,36 +1,31 @@
 import C from './actionConstants'
 
-export const addTodo = todo => {
-    return {
+export const addTodo = todo => ({
         type: C.ADD_TODO,
         payload: todo
     }
-};
+);
 
-export const deleteTodo = id => {
-    return {
+export const deleteTodo = id => ({
         type: C.DELETE_TODO,
         payload: id
     }
-};
+);
 
-export const updateTodo = todo => {
-    return {
+export const updateTodo = todo => ({
         type: C.UPDATE_TODO,
         payload: todo
     }
-};
+);
 
-export const readTodo = todos => {
-    return {
+export const readTodo = todos => ({
         type: C.READ_TODO,
         payload: todos
     }
-};
+);
 
-export const addConfig = config => {
-    return {
+export const addConfig = config => ({
         type: C.ADD_CONFIG,
         payload: config
     }
-};
+);
