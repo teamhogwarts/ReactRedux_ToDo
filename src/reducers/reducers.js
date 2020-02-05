@@ -6,7 +6,6 @@ const REDUCERS ={
     'DELETE_TODO': (state, action) => ({...state, toDos: [...state.toDos.filter(toDo => toDo.id !== action.data)]}),
     'UPDATE_FILTER_TERM': (state, action) => ({...state, filterTerm: action.filterTerm})
 }
-// return state.filter(todo => todo.id !== payload);
 
 const identityFunction = x => x;
 const reducer = (state, action) => (REDUCERS[action.type] || identityFunction)(state, action)

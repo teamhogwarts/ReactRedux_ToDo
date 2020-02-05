@@ -14,7 +14,6 @@ const ToDoContainer = ({serverUrl}) => {
     const filterTerm = useSelector(state => state.filterTerm, shallowEqual)
     const dispatch = useDispatch();
 
-
     const readAll = () => {
         dispatch(
             doFetch({
@@ -37,7 +36,6 @@ const ToDoContainer = ({serverUrl}) => {
             })
         )
 
-
     const _delete = (id) =>
         dispatch(
             doFetch({
@@ -47,7 +45,6 @@ const ToDoContainer = ({serverUrl}) => {
                 errorText: "delete todo failed"
             })
         )
-
 
     const update = (toUpdateToDo) =>
         dispatch(
@@ -80,8 +77,6 @@ const ToDoContainer = ({serverUrl}) => {
             {filter().map(toDo => <ToDoElement updateFn={update} deleteFn={_delete} key={toDo.id} toDo={toDo}/>)}
         </Row>
     </Container>)
-
 };
-
 
 export default ToDoContainer

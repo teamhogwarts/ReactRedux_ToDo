@@ -5,7 +5,6 @@ import { useDispatch} from "react-redux";
 const Filter = ({ filterTerm }) => {
     const dispatch = useDispatch();
 
-
     const changeFilterTerm = term =>{
         dispatch({ type: 'UPDATE_FILTER_TERM', filterTerm: term })
     }
@@ -20,6 +19,5 @@ const Filter = ({ filterTerm }) => {
         </InputGroup>
     )
 }
-
 
 export default Filter

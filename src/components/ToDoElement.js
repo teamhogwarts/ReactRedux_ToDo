@@ -3,7 +3,6 @@ import {Col, Card, CardBody, CardTitle, CardText, Button} from "reactstrap";
 import Dialog from "./Dialog";
 
 const ToDoElement = ({updateFn, deleteFn, toDo, toDo: {id, title, description}}) =>
-
     <Col sm="6">
         <Card style={{marginTop: "2%"}} outline color="success">
             <CardBody>
@@ -16,6 +15,5 @@ const ToDoElement = ({updateFn, deleteFn, toDo, toDo: {id, title, description}})
             </CardBody>
         </Card>
     </Col>
-
 
 export default ToDoElement
