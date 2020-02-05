@@ -11,15 +11,18 @@ const headers = {headers: {'Content-Type': 'application/json; charset=utf-8'}};
 
 const ToDoContainer = ({initialToDos, serverUrl}) => {
 
+    // useSelector erhält den kompletten State vom Store
+    // somit kann auf einen bestimmten Teil des Stores zugegriffen werden (hier auf die todos)
     const toDos = useSelector(state => state.todos, shallowEqual);
 
     const [filterTerm, setFilterTerm] = useState("");
+
+    // mit useDispatch wird eine Funktion zurückgeben, die eine Aktion an den Store weiterleiten(dispatchen) kann
     const dispatch = useDispatch();
 
     const readAll = () => {
         dispatch(doFetch({url: serverUrl, actionCreator: readTodo, errorText: "read todo's failed"}))
     };
-
 
     useEffect(readAll, []);
 
@@ -77,6 +80,5 @@ const ToDoContainer = ({initialToDos, serverUrl}) => {
     </Container>)
 
 };
-
 
 export default ToDoContainer
