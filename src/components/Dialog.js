@@ -4,23 +4,27 @@ import FormGroupElement from "./FormGroupElement";
 
 const Dialog = ({toDo, dialogButtonLabel, color, actionLabel, buttonStyle, headerText, actionFn}) => {
 
-    const [toDoState, setToDo] = useState(toDo);
-    const [modal, setModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [toDoState, setToDoState] = useState(toDo);
 
-    const change = event => setToDo({...toDoState, [event.target.name]: event.target.value});
+    const change = event =>
+        setToDoState({...toDoState, [event.target.name]: event.target.value});
 
     const onAction = (toDo, actionFn) => {
         (actionFn || (x => x)) (toDo);
         close();
     };
 
-    const close = () => setModal(false);
-    const open = () => setModal(true);
+    const close = () =>
+        setShowModal(false);
+
+    const open = () =>
+        setShowModal(true);
 
     return (
         <>
             <Button style={buttonStyle} color={color} onClick={open}>{dialogButtonLabel}</Button>
-            <Modal isOpen={modal} toggle={close}>
+            <Modal isOpen={showModal} toggle={close}>
                 <ModalHeader toggle={close}>{headerText}</ModalHeader>
                 <ModalBody>
                     <Form>

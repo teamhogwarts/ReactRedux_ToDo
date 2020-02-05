@@ -68,13 +68,13 @@ const ToDoContainer = ({serverUrl}) => {
 
     return (<Container>
         <Filter filterTerm={filterTerm}/>
-        {/*<Dialog actionFn={add}*/}
-        {/*        toDo={{title: '', description: ''}}*/}
-        {/*        buttonStyle={{width: "100%", marginTop: "2%", marginBottom: "2%"}}*/}
-        {/*        headerText={"Add a new ToDo"}*/}
-        {/*        color={"success"}*/}
-        {/*        dialogButtonLabel={"New ToDo"}*/}
-        {/*        actionLabel={"create"}/>*/}
+        <Dialog actionFn={add}
+                toDo={{title: '', description: ''}}
+                buttonStyle={{width: "100%", marginTop: "2%", marginBottom: "2%"}}
+                headerText={"Add a new ToDo"}
+                color={"success"}
+                dialogButtonLabel={"New ToDo"}
+                actionLabel={"create"}/>
         <Row>
             {/*{filter().map(toDo => <ToDoElement updateFn={update} deleteFn={_delete} key={toDo.id} toDo={toDo}/>)}*/}
             {filter().map(toDo => <ToDoElement key={toDo.id} toDo={toDo}/>)}
