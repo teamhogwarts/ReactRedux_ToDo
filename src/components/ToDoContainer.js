@@ -1,4 +1,4 @@
-import React, {useEffect } from "react";
+import React, {useEffect} from "react";
 import ToDoElement from "./ToDoElement";
 import {Row, Container} from 'reactstrap'
 import Filter from "./Filter";
@@ -14,6 +14,7 @@ const ToDoContainer = ({serverUrl}) => {
     const filterTerm = useSelector(state => state.filterTerm, shallowEqual)
     const dispatch = useDispatch();
 
+
     const readAll = () => {
         dispatch(
             doFetch({
@@ -26,17 +27,16 @@ const ToDoContainer = ({serverUrl}) => {
 
     useEffect(readAll, []);
 
-    // const add = (toDo) => {
-    //
-    //     const dataHandler = savedTodo => setToDos([...toDos, savedTodo]);
-    //
-    //     doFetch({
-    //         url: serverUrl,
-    //         requestObject: {method: "POST", ...headers, body: JSON.stringify(toDo)},
-    //         dataHandler,
-    //         errorText: "add todo failed"
-    //     });
-    // };
+    const add = (toDo) =>
+        dispatch(
+            doFetch({
+                url: serverUrl,
+                requestObject: {method: "POST", ...headers, body: JSON.stringify(toDo)},
+                actionType: 'ADD_TODO',
+                errorText: "add todo failed"
+            })
+        )
+
 
     // const _delete = (id) => {
     //     const dataHandler = (ghj) => setToDos(toDos.filter(toDo => toDo.id !== id));
@@ -68,12 +68,16 @@ const ToDoContainer = ({serverUrl}) => {
 
     return (<Container>
         <Filter filterTerm={filterTerm}/>
-        {/*<Dialog actionFn={add} toDo={{title: '', description: ''}}*/}
+        {/*<Dialog actionFn={add}*/}
+        {/*        toDo={{title: '', description: ''}}*/}
         {/*        buttonStyle={{width: "100%", marginTop: "2%", marginBottom: "2%"}}*/}
-        {/*        headerText={"Add a new ToDo"} color={"success"} dialogButtonLabel={"add"} actionLabel={"create"}/>*/}
+        {/*        headerText={"Add a new ToDo"}*/}
+        {/*        color={"success"}*/}
+        {/*        dialogButtonLabel={"New ToDo"}*/}
+        {/*        actionLabel={"create"}/>*/}
         <Row>
             {/*{filter().map(toDo => <ToDoElement updateFn={update} deleteFn={_delete} key={toDo.id} toDo={toDo}/>)}*/}
-            {toDos.map(toDo => <ToDoElement key={toDo.id} toDo={toDo}/>)}
+            {filter().map(toDo => <ToDoElement key={toDo.id} toDo={toDo}/>)}
         </Row>
     </Container>)
 
