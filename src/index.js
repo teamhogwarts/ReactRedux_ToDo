@@ -14,6 +14,7 @@ const initialState = {
 };
 
 const store = createStore(reducer, initialState, applyMiddleware(ReduxThunk))
+store.subscribe(() => console.log('The actual state is ', store.getState()))
 
 ReactDOM.render(
     <Provider store={store}>
