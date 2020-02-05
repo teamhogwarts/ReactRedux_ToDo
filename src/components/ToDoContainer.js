@@ -26,16 +26,19 @@ const ToDoContainer = ({initialToDos, serverUrl}) => {
 
     useEffect(readAll, []);
 
-    const add = (toDo) => {
-
+    const add = (toDoToAdd) => {
         // const dataHandler = savedTodo => setToDos([...toDos, savedTodo]);
 
-        dispatch(doFetch({
-            url: serverUrl,
-            requestObject: {method: "POST", ...headers, body: JSON.stringify(toDo)},
-            actionCreator: addTodo,
-            errorText: "add todo failed"
-        }));
+        const hasTodoAlready = toDos.some(todo => todo.title === toDoToAdd.title);
+
+        if (!hasTodoAlready) {
+            dispatch(doFetch({
+                url: serverUrl,
+                requestObject: {method: "POST", ...headers, body: JSON.stringify(toDoToAdd)},
+                actionCreator: addTodo,
+                errorText: "add todo failed"
+            }))
+        }
     };
 
     const _delete = (id) => {
