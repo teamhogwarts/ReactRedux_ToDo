@@ -6,6 +6,5 @@ const consoleMessages = store => next => action => {
 
 };
 
-// export default (initialState={}) => applyMiddleware(thunk, consoleMessages)(createStore)(reducer, initialState);
 export default initialState => createStore(reducer, initialState, applyMiddleware(ReduxThunk));
 
