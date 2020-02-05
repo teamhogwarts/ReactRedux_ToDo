@@ -78,7 +78,6 @@ const ToDoContainer = ({serverUrl}) => {
                 actionLabel={"create"}/>
         <Row>
             {filter().map(toDo => <ToDoElement updateFn={update} deleteFn={_delete} key={toDo.id} toDo={toDo}/>)}
-            {/*{filter().map(toDo => <ToDoElement key={toDo.id} toDo={toDo}/>)}*/}
         </Row>
     </Container>)
 
