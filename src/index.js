@@ -9,6 +9,7 @@ import App from './App';
 
 const initialState = {
     toDos: [],
+    filterTerm: '',
     config: null // null, damit der Null-Test beim Rendern funktioniert und NICHTS gerendert wird
 };
 
