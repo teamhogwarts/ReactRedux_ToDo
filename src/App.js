@@ -1,31 +1,32 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect } from 'react';
+import {useSelector, useDispatch, shallowEqual} from "react-redux";
 import ToDoContainer from "./components/ToDoContainer";
 import { Jumbotron } from "reactstrap"
 import doFetch from "./util/fetchUtil";
 
-const initialState = {
-    toDos: [
-        {id: 1, title: "Title 1", description: "Beschreibung 1", done: false},
-        {id: 2, title: "Title 2", description: "Beschreibung 2", done: false},
-        {id: 3, title: "Title 3", description: "Beschreibung 3", done: false},
-        {id: 4, title: "Title 4", description: "Beschreibung 4", done: false}
-    ]
-};
 
+/**
+ * Die Wurzel der React-App.
+ */
 const App = () => {
 
-    const [config, setConfig] = useState(null);
+    const config = useSelector(state => state.config, shallowEqual)
+    const dispatch = useDispatch();
+
+    const readConfig = () =>{
+        dispatch(
+            doFetch({
+                url: 'application.json',
+                actionType: "LOAD_CONFIG",
+                errorText: 'config error'
+            })
+        )
+    }
+
+    useEffect(readConfig, []);
 
     const renderToDoContainer = config =>
-        config ? <ToDoContainer initialToDos={initialState.toDos} serverUrl={config.serverUrl}/> : null;
-
-    useEffect(() => {
-        doFetch({
-            url: 'application.json',
-            dataHandler: setConfig,
-            errorText: 'config error'
-        })
-    }, []);
+        config ? <ToDoContainer serverUrl={config.serverUrl}/> : null;
 
     return (
         <div>
