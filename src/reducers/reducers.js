@@ -3,7 +3,7 @@ const REDUCERS ={
     'READ_TODOS': (state, action) => ({...state, toDos: action.data}),
     'ADD_TODO': (state, action) => ({...state, toDos: [...state.toDos, action.data]}),
     'UPDATE_TODO': (state, action) => ({...state, toDos: [...state.toDos.map(toDo => toDo.id === action.data.id ? action.data :  toDo) ] }),
-    'DELETE_TODO': (state, action) => ({...state, toDos: [...state.toDos.filter(toDo => toDo !== action.data.id)]}),
+    'DELETE_TODO': (state, action) => ({...state, toDos: [...state.toDos.filter(toDo => toDo !== action.data)]}),
     'UPDATE_FILTER_TERM': (state, action) => ({...state, filterTerm: action.filterTerm})
 }
 

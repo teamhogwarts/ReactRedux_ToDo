@@ -29,9 +29,12 @@ const Dialog = ({toDo, dialogButtonLabel, color, actionLabel, buttonStyle, heade
                 <ModalBody>
                     <Form>
                         <FormGroupElement name={"title"} onChangeHandler={change} id={"toDoTitle"}
-                                          value={toDoState.title} label={"Title"}/>
+                                          value={toDoState.title} label={"Title"}
+                                          maxTextLength={"10"}
+                        />
                         <FormGroupElement name={"description"} onChangeHandler={change} id={"toDoDescription"}
-                                          value={toDoState.description} label={"Description"}/>
+                                          value={toDoState.description} label={"Description"}
+                                          maxTextLength={"50"}/>
                     </Form>
                 </ModalBody>
                 <ModalFooter>

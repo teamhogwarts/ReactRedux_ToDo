@@ -38,25 +38,26 @@ const ToDoContainer = ({serverUrl}) => {
         )
 
 
-    // const _delete = (id) => {
-    //     const dataHandler = (ghj) => setToDos(toDos.filter(toDo => toDo.id !== id));
-    //     doFetch({
-    //         url: `${serverUrl}/${id}`,
-    //         requestObject: {method: "DELETE"},
-    //         dataHandler,
-    //         errorText: "delete todo failed"
-    //     });
-    // };
-    //
-    // const update = (toUpdateToDo) => {
-    //     const dataHandler = updatedToDo => setToDos(toDos.map(toDo => toDo.id === updatedToDo.id ? updatedToDo : toDo));
-    //     doFetch({
-    //         url: `${serverUrl}/${toUpdateToDo.id}`,
-    //         requestObject: {method: "PUT", ...headers, body: JSON.stringify(toUpdateToDo)},
-    //         dataHandler,
-    //         errorText: "update todo failed"
-    //     });
-    // };
+    const _delete = (id) =>
+        dispatch(
+            doFetch({
+                url: `${serverUrl}/${id}`,
+                requestObject: {method: "DELETE"},
+                actionType: 'DELETE_TODO',
+                errorText: "delete todo failed"
+            })
+        )
+
+
+    const update = (toUpdateToDo) =>
+        dispatch(
+            doFetch({
+                url: `${serverUrl}/${toUpdateToDo.id}`,
+                requestObject: {method: "PUT", ...headers, body: JSON.stringify(toUpdateToDo)},
+                actionType: 'UPDATE_TODO',
+                errorText: "update todo failed"
+            })
+        )
 
     const filter = () => {
         const filterTermIgnore = filterTerm.toLowerCase();
@@ -76,8 +77,8 @@ const ToDoContainer = ({serverUrl}) => {
                 dialogButtonLabel={"New ToDo"}
                 actionLabel={"create"}/>
         <Row>
-            {/*{filter().map(toDo => <ToDoElement updateFn={update} deleteFn={_delete} key={toDo.id} toDo={toDo}/>)}*/}
-            {filter().map(toDo => <ToDoElement key={toDo.id} toDo={toDo}/>)}
+            {filter().map(toDo => <ToDoElement updateFn={update} deleteFn={_delete} key={toDo.id} toDo={toDo}/>)}
+            {/*{filter().map(toDo => <ToDoElement key={toDo.id} toDo={toDo}/>)}*/}
         </Row>
     </Container>)
 
